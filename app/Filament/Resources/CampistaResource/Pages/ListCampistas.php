@@ -10,9 +10,11 @@ use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Hydrat\TableLayoutToggle\Concerns\HasToggleableTable;
 use Illuminate\Database\Eloquent\Builder;
+use JoseEspinal\RecordNavigation\Traits\HasRecordsList;
 
 class ListCampistas extends ListRecords
 {
+    use HasRecordsList;
     protected static string $resource = CampistaResource::class;
 
     protected function getHeaderActions(): array

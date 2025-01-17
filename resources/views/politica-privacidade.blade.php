@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Trekking - Politica de Privacidade</title>
+    <title>{{ config('app.name') }} - Politica de Privacidade</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url(asset('img/logo_simple.png')) }}?20231011">
 

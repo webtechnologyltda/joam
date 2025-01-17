@@ -25,10 +25,7 @@ export default {
             },
             colors: {
                 'primary': colors.yellow,
-            },
-            backgroundImage: {
-                'fundo-astronauta': "url('/img/Astronaut suit-pana.svg')",
-            },
+            }
         },
     },
     plugins: [

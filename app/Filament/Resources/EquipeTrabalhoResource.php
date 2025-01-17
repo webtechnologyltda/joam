@@ -53,6 +53,7 @@ class EquipeTrabalhoResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->recordUrl(null)
             ->bulkActions([
                 ExportBulkAction::make()
                     ->exports([

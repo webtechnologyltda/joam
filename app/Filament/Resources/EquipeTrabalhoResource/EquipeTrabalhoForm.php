@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Leandrocfe\FilamentPtbrFormFields\Cep;
+use Michaeld555\FilamentCroppie\Components\Croppie;
 
 abstract class EquipeTrabalhoForm
 {
@@ -320,34 +321,36 @@ abstract class EquipeTrabalhoForm
     {
         return [
 
-            FileUpload::make('avatar_url')
-                ->hiddenLabel()
-                ->label('Foto de identificação')
-                ->placeholder(fn() => new HtmlString('<span><a class="text-primary-600 font-bold">Clique aqui</a></br>Para adicionar uma foto sua</span>'))
-
-                ->alignCenter()
-                ->imageEditor()
+            Croppie::make('avatar_url')
                 ->directory('foto-formulario-equipe-trabalho')
+                ->placeholder(fn() => new HtmlString('<span><a class="text-primary-600 font-bold">Clique aqui</a></br>Para adicionar uma foto sua</span>'))
+                ->modalTitle('Recorte e encaixe sua foto:')
+                ->enableOrientation(true)
+                ->modalDescription('Corte a imagem na proporção correta.')
+                ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg', 'image/webp'])
+                ->label('Foto de Perfil')
+                ->hiddenLabel()
+                ->disk('public')
+                ->optimize('webp')
+                ->modalSize('sm')
+                ->imageFormat('webp')
+                ->viewportType('square')
+                ->imagePreviewHeight('250')
+                ->imageSize('viewport')
+                ->boundaryWidth('250')
+                ->boundaryHeight('250')
+                ->panelAspectRatio('1:1')
+                ->panelLayout('integrated')
+                ->maxSize(10240)
                 ->columnStart([
                     'default' => 1,
                     'lg' => 3,
                 ])
-                ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg', 'image/webp'])
-                ->imagePreviewHeight('400')
                 ->loadingIndicatorPosition('center')
-                ->panelAspectRatio('1:1')
                 ->removeUploadedFileButtonPosition('top-center')
                 ->uploadProgressIndicatorPosition('center')
-                ->imageCropAspectRatio('1:1')
-                ->orientImagesFromExif(false)
-                ->extraAttributes(['rounded'])
-                ->imagePreviewHeight('250')
-                ->imageEditorAspectRatios([
-                    '1:1',
-                ])
-                ->panelLayout('integrated')
-                ->uploadingMessage('Uploading attachment...')
-                ->imageEditorEmptyFillColor('#000000')
+                ->imageResizeTargetWidth(400)
+                ->imageResizeTargetHeight(400)
                 ->required(),
 
             Actions::make([

@@ -6,6 +6,7 @@ use App\Enums\RoleEnum;
 use App\Filament\Dashboard;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Devonab\FilamentEasyFooter\EasyFooterPlugin;
 use EightyNine\Reports\ReportsPlugin;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
@@ -69,7 +70,7 @@ class AdminPanelProvider extends PanelProvider
 
             ])
 //            ->topNavigation()
-            ->maxContentWidth(MaxWidth::ScreenTwoExtraLarge)
+            ->maxContentWidth(MaxWidth::Full)
             ->favicon(asset('img/logo_simple.png'))
             ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('img/logo_simple.png'))
@@ -103,8 +104,15 @@ class AdminPanelProvider extends PanelProvider
                     ->color(fn () => match (app()->environment()) {
                         'production' => null,
                         'staging' => Color::Orange,
-                        default => Color::Blue,
+                        default => Color::Green,
                     }),
+                EasyFooterPlugin::make()
+                    ->withLoadTime('Tempo de Carregamento da Página:')
+                    ->withLogo(asset('img/logo_simple.png'), config('app.url'), '30')
+                    ->withLinks([
+                        ['title' => 'Política de Privacidade', 'url' => config('app.url') . '/politica-privacidade'],
+                    ])
+                    ->withFooterPosition('footer'),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->authMiddleware([

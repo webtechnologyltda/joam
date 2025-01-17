@@ -11,16 +11,21 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
+use JoseEspinal\RecordNavigation\Traits\HasRecordNavigation;
 
 class EditCampista extends EditRecord
 {
+    use HasRecordNavigation;
+
     protected static string $resource = CampistaResource::class;
 
     protected function getHeaderActions(): array
     {
-        return [
+        $existingActions = [
             Actions\DeleteAction::make(),
         ];
+
+        return array_merge($existingActions, $this->getNavigationActions());
     }
 
     protected function handleRecordUpdate(Model $record, array $data): Model

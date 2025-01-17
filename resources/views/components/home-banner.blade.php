@@ -5,7 +5,7 @@
                 <span class="travol text-color1 font-rustic">1º Trekking</span>
             </h1>.
        </h1>
-        <p class="w-full mt-2 text-center font-bold uppercase text-sm text-white tracking-widest [word-spacing:8px]">
+        <p class="w-full mt-2 text-center font-poppins font-bold uppercase text-md text-white tracking-widest [word-spacing:8px]">
             ¨Viver na santidade também é ser radical¨ João Paulo II</p>
 
 

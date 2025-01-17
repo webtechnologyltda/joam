@@ -8,6 +8,7 @@ use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Guava\FilamentIconSelectColumn\Tables\Columns\IconSelectColumn;
 
 abstract class EquipeTrabalhoTable
 {
@@ -22,10 +23,11 @@ abstract class EquipeTrabalhoTable
             ImageColumn::make('avatar_url')
                 ->square()
                 ->alignCenter()
-                ->size(60)
+                ->size(50)
                 ->grow(false)
+                ->defaultImageUrl(asset('img/no-avatar.png'))
                 ->extraImgAttributes(['class' => 'rounded-xl'])
-                ->label('Foto'),
+                ->label(''),
 
             TextColumn::make('nome')
                 ->sortable()
@@ -39,9 +41,10 @@ abstract class EquipeTrabalhoTable
                 ->formatStateUsing(fn($state) => Carbon::createFromFormat('d/m/Y', $state)->age)
                 ->toggleable(isToggledHiddenByDefault: true),
 
-            SelectColumn::make('status')
+            IconSelectColumn::make('status')
                 ->alignCenter()
                 ->options(StatusInscricaoEquipeTrabalho::class)
+                ->closeOnSelection()
                 ->label('Status'),
 
             TextColumn::make('data_form.sexo')

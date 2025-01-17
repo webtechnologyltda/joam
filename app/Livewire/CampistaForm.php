@@ -6,14 +6,10 @@ use App\Models\Campista;
 use App\Models\User;
 use App\Settings\GeneralSettings;
 use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Split;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -30,6 +26,7 @@ use Leandrocfe\FilamentPtbrFormFields\Cep;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Session;
 use Livewire\Component;
+use Michaeld555\FilamentCroppie\Components\Croppie;
 
 class CampistaForm extends Component implements HasForms
 {
@@ -79,33 +76,34 @@ class CampistaForm extends Component implements HasForms
                                 'lg' => 1,
                                 'xl' => 1,
                             ]),
-                        FileUpload::make('avatar_url')
-                            ->hiddenLabel()
-                            ->label('Foto de identificação')
-                            ->optimize('webp')
-                            ->placeholder(fn() => new HtmlString('<span><a class="text-primary-600 font-bold">Clique aqui</a></br>Para adicionar uma foto sua</span>'))
-                            ->resize(15)
-                            ->alignCenter()
-                            ->imageEditor()
+
+                        Croppie::make('avatar_url')
                             ->directory('foto-formulario')
-                            ->columnSpan(1)
-                            ->image()
-                            ->imagePreviewHeight('400')
-                            ->loadingIndicatorPosition('center')
+                            ->placeholder(fn() => new HtmlString('<span><a class="text-primary-600 font-bold">Clique aqui</a></br>Para adicionar uma foto sua</span>'))
+                            ->modalTitle('Recorte e encaixe sua foto:')
+                            ->enableOrientation(true)
+                            ->modalDescription('Corte a imagem na proporção correta.')
+                            ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg', 'image/webp'])
+                            ->label('Foto de Perfil')
+                            ->hiddenLabel()
+                            ->disk('public')
+                            ->optimize('webp')
+                            ->modalSize('sm')
+                            ->imageFormat('webp')
+                            ->viewportType('square')
+                            ->imagePreviewHeight('250')
+                            ->imageSize('viewport')
+                            ->boundaryWidth('250')
+                            ->boundaryHeight('250')
                             ->panelAspectRatio('1:1')
+                            ->panelLayout('integrated')
+                            ->maxSize(10240)
+                            ->columnSpan(1)
+                            ->loadingIndicatorPosition('center')
                             ->removeUploadedFileButtonPosition('top-center')
                             ->uploadProgressIndicatorPosition('center')
-                            ->imageEditorMode(2)
-                            ->imageCropAspectRatio('1:1')
-                            ->orientImagesFromExif(false)
-                            ->extraAttributes(['rounded'])
-                            ->imagePreviewHeight('250')
-                            ->imageEditorAspectRatios([
-                                '1:1',
-                            ])
-                            ->panelLayout('integrated')
-                            ->uploadingMessage('Uploading attachment...')
-                            ->imageEditorEmptyFillColor('#000000')
+                            ->imageResizeTargetWidth(400)
+                            ->imageResizeTargetHeight(400)
                             ->required(),
                     ]),
                 Placeholder::make('mensagem_foto')
@@ -115,7 +113,7 @@ class CampistaForm extends Component implements HasForms
                     ->columnSpanFull()
                     ->hint('Por favor, envie uma foto SEM óculos escuros ou acessórios que possam dificultar a sua identificação.'),
                 Grid::make()
-                    ->label( 'Informações Pessoais' )
+                    ->label('Informações Pessoais')
                     ->columns([
                         'default' => 1,
                         'sm' => 1,
@@ -576,7 +574,6 @@ class CampistaForm extends Component implements HasForms
                                 true => 'Declaro nunca ter participado',
                                 false => 'Não, já participei de alguma edição',
                             ]),
-
 
 
                         Placeholder::make('info_termo')
