@@ -105,4 +105,23 @@ class CampistaPolicy
     {
         return $user->can('{{ Reorder }}');
     }
+
+
+    public function audit(User $user): bool
+    {
+        return $user->can('audit_campista');
+    }
+
+    public function restoreAudit(User $user): bool
+    {
+        return $user->can('restoreAudit_campista');
+    }
+
+    /**
+     * Determine whether the user can export.
+     */
+    public function export(User $user): bool
+    {
+        return $user->can('export_campista');
+    }
 }
