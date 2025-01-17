@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Campista;
+use App\Models\GrupoEquipeTrabalho;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CampistaPolicy
+class GrupoEquipeTrabalhoPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class CampistaPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_campista');
+        return $user->can('view_any_grupo::equipe::trabalho');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Campista $campista): bool
+    public function view(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
-        return $user->can('view_campista');
+        return $user->can('{{ View }}');
     }
 
     /**
@@ -31,23 +31,23 @@ class CampistaPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_campista');
+        return $user->can('create_grupo::equipe::trabalho');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Campista $campista): bool
+    public function update(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
-        return $user->can('update_campista');
+        return $user->can('update_grupo::equipe::trabalho');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Campista $campista): bool
+    public function delete(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
-        return $user->can('delete_campista');
+        return $user->can('delete_grupo::equipe::trabalho');
     }
 
     /**
@@ -55,13 +55,13 @@ class CampistaPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_campista');
+        return $user->can('delete_any_grupo::equipe::trabalho');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Campista $campista): bool
+    public function forceDelete(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -77,7 +77,7 @@ class CampistaPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Campista $campista): bool
+    public function restore(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
         return $user->can('{{ Restore }}');
     }
@@ -93,7 +93,7 @@ class CampistaPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Campista $campista): bool
+    public function replicate(User $user, GrupoEquipeTrabalho $grupoEquipeTrabalho): bool
     {
         return $user->can('{{ Replicate }}');
     }
